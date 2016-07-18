@@ -38,6 +38,7 @@ import com.plaid.client.exception.PlaidServersideUnknownResponseException;
 import com.plaid.client.response.ErrorResponse;
 import com.plaid.client.response.MfaResponse;
 import com.plaid.client.response.UnknownResponse;
+import sun.net.www.http.HttpClient;
 
 import javax.net.ssl.SSLContext;
 
