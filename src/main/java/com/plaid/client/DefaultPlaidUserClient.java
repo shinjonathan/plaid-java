@@ -244,7 +244,7 @@ public class DefaultPlaidUserClient implements PlaidUserClient {
     }
 
     @Override
-    public TransactionsResponse updateCredentials(Credentials credentials, String type) {
+    public TransactionsResponse updateCredentials(Credentials credentials, String type, ConnectOptions connectOptions) {
 
         if (StringUtils.isEmpty(accessToken)) {
             throw new PlaidClientsideException("No accessToken set");
@@ -254,6 +254,7 @@ public class DefaultPlaidUserClient implements PlaidUserClient {
 
         request.addParameter("credentials", serialize(credentials));
         request.addParameter("type", type);
+        request.addParameter("options", serialize(connectOptions));
 
         HttpResponseWrapper<TransactionsResponse> response =
                 httpDelegate.doPatch(request, TransactionsResponse.class);
