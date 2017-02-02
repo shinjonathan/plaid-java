@@ -6,12 +6,7 @@ import com.plaid.client.request.ConnectOptions;
 import com.plaid.client.request.Credentials;
 import com.plaid.client.request.GetOptions;
 import com.plaid.client.request.InfoOptions;
-import com.plaid.client.response.AccountsResponse;
-import com.plaid.client.response.InfoResponse;
-import com.plaid.client.response.MessageResponse;
-import com.plaid.client.response.MfaResponse;
-import com.plaid.client.response.TransactionsResponse;
-import com.plaid.client.response.PlaidUserResponse;
+import com.plaid.client.response.*;
 
 public interface PlaidUserClient {
 
@@ -54,6 +49,8 @@ public interface PlaidUserClient {
     MessageResponse deleteUser();
 
     AccountsResponse checkBalance();
+
+    AccountsResponse checkCreditDetails();
 
     InfoResponse info(Credentials credentials, String type, InfoOptions options);
 

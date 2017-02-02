@@ -3,7 +3,7 @@ package com.plaid.client;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.plaid.client.response.MfaResponse;
+import com.plaid.client.response.*;
 import org.apache.commons.lang.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -18,11 +18,6 @@ import com.plaid.client.request.ConnectOptions;
 import com.plaid.client.request.Credentials;
 import com.plaid.client.request.GetOptions;
 import com.plaid.client.request.InfoOptions;
-import com.plaid.client.response.AccountsResponse;
-import com.plaid.client.response.InfoResponse;
-import com.plaid.client.response.MessageResponse;
-import com.plaid.client.response.PlaidUserResponse;
-import com.plaid.client.response.TransactionsResponse;
 
 public class DefaultPlaidUserClient implements PlaidUserClient {
 
@@ -315,6 +310,17 @@ public class DefaultPlaidUserClient implements PlaidUserClient {
     	Map<String, Object> requestParams = new HashMap<String, Object>();
 
     	return handlePost("/balance", requestParams, AccountsResponse.class);
+    }
+
+    @Override
+    public AccountsResponse checkCreditDetails() {
+        if (StringUtils.isEmpty(accessToken)) {
+            throw new PlaidClientsideException("No accessToken set");
+        }
+
+        Map<String, Object> requestParams = new HashMap<>();
+
+        return handlePost("/creditdetails/get", requestParams, AccountsResponse.class);
     }
 
     @Override

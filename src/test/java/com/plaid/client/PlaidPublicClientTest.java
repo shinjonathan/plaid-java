@@ -49,7 +49,7 @@ public class PlaidPublicClientTest {
         assertTrue(categoriesResponse.getCategories().size() > 0);
     }
 
-    @Test
+   @Test
     public void testGetAllInstitutions() {
         InstitutionsResponse instResponse = plaidPublicClientWithoutCredentials.getAllInstitutions();
         assertNotNull(instResponse);
@@ -64,7 +64,7 @@ public class PlaidPublicClientTest {
 
     @Test
     public void testGetInstitution() {
-        InstitutionResponse instResponse = plaidPublicClientWithoutCredentials.getInstitution("10");
+        InstitutionResponse instResponse = plaidPublicClientWithoutCredentials.getInstitution("usaa");
         assertNotNull(instResponse);
         assertTrue(instResponse.getInstitution().getName().contains("Discover"));
     }

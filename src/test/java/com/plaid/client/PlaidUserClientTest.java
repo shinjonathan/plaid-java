@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import com.plaid.client.response.*;
 import org.apache.http.HttpStatus;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -17,14 +18,8 @@ import com.plaid.client.http.ApacheHttpClientHttpDelegate;
 import com.plaid.client.http.HttpDelegate;
 import com.plaid.client.request.ConnectOptions;
 import com.plaid.client.request.Credentials;
-import com.plaid.client.response.AccountsResponse;
-import com.plaid.client.response.InfoResponse;
-import com.plaid.client.response.MessageResponse;
-import com.plaid.client.response.MfaResponse;
 import com.plaid.client.response.MfaResponse.DeviceChoiceMfaResponse;
 import com.plaid.client.response.MfaResponse.DeviceListMfaResponse;
-import com.plaid.client.response.TransactionsResponse;
-import com.plaid.client.response.PlaidUserResponse;
 
 public class PlaidUserClientTest {
 
@@ -143,6 +138,15 @@ public class PlaidUserClientTest {
     }
 
     @Test
+    public void testCheckCreditDetails() {
+        plaidUserClient.setAccessToken("test_wells");
+        AccountsResponse response = plaidUserClient.checkCreditDetails();
+        System.out.println(response);
+        assertEquals("test_wells", response.getAccessToken());
+        assertTrue(response.getAccounts().size() > 0);
+    }
+
+    @Test
     public void testAddProduct() {
 
     	plaidUserClient.setAccessToken("test_wells");
@@ -156,7 +160,7 @@ public class PlaidUserClientTest {
     public void testUpdateCredentials() {
         Credentials testCredentials = new Credentials("plaid_test", "plaid_good");
         plaidUserClient.setAccessToken("test_amex");
-        TransactionsResponse response = plaidUserClient.updateCredentials(testCredentials, "amex");
+        TransactionsResponse response = plaidUserClient.updateCredentials(testCredentials, "amex", new ConnectOptions());
 
         assertEquals("test_amex",response.getAccessToken());
         assertTrue(response.getAccounts().size() > 0);
